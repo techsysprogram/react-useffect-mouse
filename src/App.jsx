@@ -2,34 +2,32 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  console.log("rendirezar")
-
-  const [count, setCount] = useState(0);
-
   const [checked, setchecked] = useState(false);
+  const [mousePosition_1, setmousePosition_1] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    // effect , osea despues del effect te muestra el valor actual
-    console.log(
-      "%c effect " + count,
-      "background: blue; color: white; padding: 2px;"
-    );
-    document.title = "actions: " + count;
+    if (!checked) return;
+
+    const onMouseMove = (e) => {
+      setmousePosition_1({ x: e.clientX, y: e.clientY });
+    }
+
+    console.log("rendirezar");
+
+    console.log("addEvent mousemove");
+    window.addEventListener("mousemove", onMouseMove);
+
     return () => {
-      // cleanup , osea antes del effect te muestra el valor anterior
-      console.log(
-        "%c cleanup " + count,
-        "background: yellow; color: black; padding: 2px;"
-      );
-      document.title = "React App";
+      console.log("removeEvent mousemove");
+      window.removeEventListener("mousemove", onMouseMove);
     };
-  }, [count]); // si no le pasas el array vacio se ejecuta cada vez que se renderiza el componente
+  }, [checked]);
 
   return (
     <>
       <div>
         <label htmlFor="">
-        my checkbox
+          my checkbox
           <input
             type="checkbox"
             className="checkbox-primary checkbox"
@@ -38,12 +36,7 @@ function App() {
           />
         </label>
       </div>
-
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
+      <pre>{JSON.stringify(mousePosition_1, null, 4)}</pre>
     </>
   );
 }

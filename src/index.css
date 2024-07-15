@@ -35,6 +35,14 @@ h1 {
   line-height: 1.1;
 }
 
+pre {
+  font-family: Menlo, monospace;
+  font-size: 0.9em;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: left;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
